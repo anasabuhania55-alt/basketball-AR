@@ -7,6 +7,9 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public AudioSource scoreAudio;
 
+    public GameObject gameplayButtons;   // Panel: زر Move Hoop
+    public GameObject moveButtons;       // Panel: الازرار الاربعة + Done + Reset
+
     private int score = 0;
 
     private void Start()
@@ -16,21 +19,29 @@ public class GameUI : MonoBehaviour
 
     public void ShowPlacementState()
     {
-        instructionText.text =
-            "Move phone to detect surface\nTap to place hoop";
+        instructionText.text = "Move phone to detect surface\nTap to place hoop";
+        gameplayButtons.SetActive(false);
+        moveButtons.SetActive(false);
     }
 
     public void ShowGameplayState()
     {
-        instructionText.text =
-            "Swipe up to throw the ball\nUse Move Hoop to reposition";
+        instructionText.text = "Swipe up to throw the ball\nUse Move Hoop to reposition";
+        gameplayButtons.SetActive(true);
+        moveButtons.SetActive(false);
+    }
+
+    public void ShowMoveState()
+    {
+        instructionText.text = "Use arrows to position the hoop";
+        gameplayButtons.SetActive(false);
+        moveButtons.SetActive(true);
     }
 
     public void AddScore()
     {
         score++;
         UpdateScoreUI();
-
         if (scoreAudio != null)
             scoreAudio.Play();
     }
@@ -45,5 +56,4 @@ public class GameUI : MonoBehaviour
         score = 0;
         UpdateScoreUI();
     }
-
 }
